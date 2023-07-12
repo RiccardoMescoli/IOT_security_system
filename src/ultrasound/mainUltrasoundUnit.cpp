@@ -1,5 +1,5 @@
 #include<Arduino.h>
-#include "PIRUnitConfig.h"
+#include "UltrasoundUnitConfig.h"
 
 /* ---------- MQTT connectivity ----------- */
 char local_ip[IP_STRING_SIZE] = NULL_IP;
@@ -31,6 +31,10 @@ bool sensorTriggered = false;
 bool controllerOnline = false;
 bool alarmActive = false;
 
+/* ---------- Sensor new ping obj --------- */
+NewPing sonar(SENS_TRIGGER_PIN, US_ECHO_PIN, US_PING_MAX_DISTANCE);
+uint16_t recorded_distance = US_PING_MAX_DISTANCE;
+uint16_t max_distance_recorded = US_PING_MAX_DISTANCE;
 std::map<String, sens_inf> sensor_dict;
 
 /* --------- Function Prototypes ---------- */
@@ -81,11 +85,20 @@ void setup(void){
     mqttClient.setServer(mqtt_broker_ip, mqtt_broker_port);
 
     pinMode(SENS_ACT_PIN, OUTPUT);
+    pinMode(US_ECHO_PIN, INPUT);
+
+    digitalWrite(SENS_ACT_PIN, HIGH);
+    delay(MAX_LEN_REC_DELAY);
+    max_distance_recorded = sonar.ping_cm();
+    Serial.print("Max distance recorded: ");
+    Serial.print(max_distance_recorded);
+    Serial.println("cm");
+
     if(tier == 0){
-        digitalWrite(SENS_ACT_PIN, HIGH);
         sensorActive = true;
+    } else {
+        digitalWrite(SENS_ACT_PIN, LOW);
     }
-    pinMode(PIR_OUTPUT_PIN, INPUT);
 }
 
 void loop(void){
@@ -99,9 +112,13 @@ void loop(void){
         xTimerStart(stopSensorTimer, 0);
         Serial.println(" - Sensor ACTIVATED!");
     } else if (sensorActive) {
-        sensorTriggered = digitalRead(PIR_OUTPUT_PIN);
-        if(sensorTriggered){
+        recorded_distance = sonar.ping_cm();
+        int16_t recorded_height = (max_distance_recorded - recorded_distance);
+        if(recorded_height > MIN_HEIGHT_TO_TRIGGER){
             Serial.println("Sensor triggered!!");
+            Serial.print("Height recorded:");
+            Serial.print(recorded_height);
+            Serial.println("cm");
             TriggerResponse();
         }
     }

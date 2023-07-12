@@ -46,7 +46,6 @@ void COAPSetTier(CoapPacket &packet, IPAddress ip, int port){
             sensorToActivate = true;
 
         Serial.println(" - Sensor ACTIVATED!");
-
     }
 
     coap.sendResponse(ip, 

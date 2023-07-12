@@ -7,6 +7,8 @@
     #include "controller/MQTTUtils/MQTTUtils.h"
 #elif defined(IS_PIR)
     #include "PIR/MQTTUtils/MQTTUtils.h"
+#elif defined(IS_ULTRASOUND)
+    #include "ultrasound/MQTTUtils/MQTTUtils.h"
 #endif
 
 #define WIFI_CONNECT_MAX_TRIES 10

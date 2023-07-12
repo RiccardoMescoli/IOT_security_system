@@ -25,6 +25,7 @@ char local_ip[IP_STRING_SIZE] = NULL_IP;
 
 AsyncMqttClient mqttClient;
 TimerHandle_t mqttReconnectTimer;
+TimerHandle_t mqttAdvertiseTimer;
 
 char mqtt_broker_ip[IP_STRING_SIZE] = NULL_IP;
 uint16_t mqtt_broker_port = 1883;
@@ -54,6 +55,11 @@ void setup(void) {
     
     // MQTT config
     mqttReconnectTimer = xTimerCreate("mqttTimer", pdMS_TO_TICKS(2000), pdFALSE, (void*)0, reinterpret_cast<TimerCallbackFunction_t>(MQTTConnect));
+    mqttAdvertiseTimer = xTimerCreate("mqttAdvTimer", 
+                                      pdMS_TO_TICKS(MQTT_ADV_FREQUENCY_MS), 
+                                      pdFALSE, (void*)0, 
+                                      reinterpret_cast<TimerCallbackFunction_t>(MQTTPubConnectMsg)
+                                      );
     mqttClient.onConnect(onMQTTConnect);
     mqttClient.onDisconnect(onMQTTDisconnect);
     mqttClient.onSubscribe(onMQTTSubscribe);

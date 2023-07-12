@@ -19,12 +19,13 @@ void MQTTConnect(void){
 
 uint16_t MQTTPubConnectMsg(void){
     char json_payload[256];
+    //uint8_t test = group;
 
     StaticJsonDocument<CONNECT_JSON_CAPACITY> connect_json;
     connect_json["name"] = SENSOR_NAME;
     connect_json["status"] = "ONLINE";
     connect_json["ip"] = local_ip;
-    connect_json["group"] = group;
+    connect_json["group"] = (uint8_t) group;
     connect_json["tier"] = tier;
 
 
@@ -101,7 +102,8 @@ void onMQTTMessage(char* topic, char* payload, AsyncMqttClientMessageProperties 
             Serial.print("DESERIALIZATION FAILED: ");
             Serial.println(err.c_str());
         } else if (strcmp(doc["ip"], local_ip) != 0) {
-            sensor_dict[doc["ip"]].group = doc["group"];
+            int test = doc["group"];
+            sensor_dict[doc["ip"]].group = (char) test;
             sensor_dict[doc["ip"]].tier = doc["tier"];
 
             

@@ -1,20 +1,23 @@
 #ifndef MQTT_UTILS_H /*== INCLUDE ==*/
 #define MQTT_UTILS_H /*=== GUARD ===*/
 
+#include <map>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "freertos/semphr.h"
+#include "SensDataStructures.h"
 #include "MQTTConnectivityImports.h"
 #include "MQTTTopics.h"
 
-#define CONNECT_JSON_CAPACITY JSON_OBJECT_SIZE(3) + JSON_STRING_SIZE(IP_STRING_SIZE)
+#define CONNECT_JSON_CAPACITY JSON_OBJECT_SIZE(5) + JSON_STRING_SIZE(IP_STRING_SIZE)
 #define LAST_WILL_JSON_CAPACITY JSON_OBJECT_SIZE(3) + JSON_STRING_SIZE(IP_STRING_SIZE)
 #define ALARM_STATUS_JSON_CAPACITY JSON_OBJECT_SIZE(1) + JSON_STRING_SIZE(11)
 #define ALARM_TRIGGERED_JSON_CAPACITY JSON_OBJECT_SIZE(1)
-
-uint16_t MQTTPubConnectMsg(void);
+#define SENSOR_NAME "ULTRASOUND"
 
 void MQTTConnect(void);
+
+uint16_t MQTTPubConnectMsg(void);
 
 void onMQTTConnect(bool sessionPresent);
 
@@ -29,9 +32,5 @@ void onMQTTMessage(char* topic, char* payload, AsyncMqttClientMessageProperties 
 void onMQTTPublish(uint16_t packetId);
 
 void MQTTSetLastWill(void);
-
-uint16_t publishAlarmStatus(void);
-
-uint16_t publishAlarmTriggerStatus(void);
 
 #endif

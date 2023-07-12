@@ -1,9 +1,11 @@
 #ifndef MQTT_UTILS_H /*== INCLUDE ==*/
 #define MQTT_UTILS_H /*=== GUARD ===*/
 
+#include <map>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "freertos/semphr.h"
+#include "SensDataStructures.h"
 #include "MQTTConnectivityImports.h"
 #include "MQTTTopics.h"
 
@@ -11,6 +13,7 @@
 #define LAST_WILL_JSON_CAPACITY JSON_OBJECT_SIZE(3) + JSON_STRING_SIZE(IP_STRING_SIZE)
 #define ALARM_STATUS_JSON_CAPACITY JSON_OBJECT_SIZE(1) + JSON_STRING_SIZE(11)
 #define ALARM_TRIGGERED_JSON_CAPACITY JSON_OBJECT_SIZE(1)
+#define SENSOR_NAME "PIR"
 
 void MQTTConnect(void);
 

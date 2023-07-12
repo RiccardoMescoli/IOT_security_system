@@ -29,7 +29,7 @@ uint16_t MQTTPubConnectMsg(void){
 
 
     Serial.println("-*Advertising status*-");
-    serializeJson(connect_json, json_payload);
+    serializeJson(connect_json, json_payload, 256);
     uint16_t packetIdPub = mqttClient.publish(SENSORS_STATUS_TOPIC, 
                                                1, 
                                                true, 
@@ -101,7 +101,7 @@ void onMQTTMessage(char* topic, char* payload, AsyncMqttClientMessageProperties 
             Serial.print("DESERIALIZATION FAILED: ");
             Serial.println(err.c_str());
         } else if (strcmp(doc["ip"], local_ip) != 0) {
-            sensor_dict[doc["ip"]].group = doc["group"];
+            sensor_dict[doc["ip"]].group = doc["g"];
             sensor_dict[doc["ip"]].tier = doc["tier"];
 
             

@@ -2,6 +2,7 @@
 
 extern AsyncMqttClient mqttClient;
 extern TimerHandle_t mqttReconnectTimer;
+extern TimerHandle_t mqttAdvertiseTimer;
 extern char local_ip[IP_STRING_SIZE];
 extern char alarm_status[11];
 extern bool alarm_triggered;
@@ -10,6 +11,26 @@ void MQTTConnect(void){
     Serial.println("Connecting to MQTT...");
     mqttClient.connect();
 }
+
+uint16_t MQTTPubConnectMsg(void){
+    char json_payload[256];
+
+    StaticJsonDocument<CONNECT_JSON_CAPACITY> connect_json;
+    connect_json["name"] = "Controller";
+    connect_json["status"] = "ONLINE";
+    connect_json["ip"] = local_ip;
+
+    serializeJson(connect_json, json_payload);
+    uint16_t packetIdPub = mqttClient.publish(CONTROLLER_STATUS_TOPIC, 
+                                               1, 
+                                               true, 
+                                               json_payload
+                                               );  
+
+    xTimerStart(mqttAdvertiseTimer, 0);
+
+    return packetIdPub;
+};
 
 void onMQTTConnect(bool sessionPresent) {
     Serial.println("Connected to MQTT.");
@@ -20,26 +41,12 @@ void onMQTTConnect(bool sessionPresent) {
     uint16_t packetIdSub = mqttClient.subscribe(SENSORS_TOPIC_WILDCARD, 1);
     Serial.print("Subscribing at QoS 1, packetId: ");
     Serial.println(packetIdSub);
-    
-    char json_payload[256];
-
-    StaticJsonDocument<CONNECT_JSON_CAPACITY> connect_json;
-    connect_json["name"] = "Controller";
-    connect_json["status"] = "ONLINE";
-    connect_json["ip"] = local_ip;
-
-
 
     uint16_t packetIdPub1 = publishAlarmStatus();
 
     uint16_t packetIdPub2 = publishAlarmTriggerStatus();
 
-    serializeJson(connect_json, json_payload);
-    uint16_t packetIdPub3 = mqttClient.publish(CONTROLLER_STATUS_TOPIC, 
-                                               1, 
-                                               true, 
-                                               json_payload
-                                               );                                
+    uint16_t packetIdPub3 = MQTTPubConnectMsg();                                  
 
     Serial.print("Publishing at QoS 1, packetId: ");
     Serial.println(packetIdPub1);
@@ -54,6 +61,7 @@ void onMQTTConnect(bool sessionPresent) {
 void onMQTTDisconnect(AsyncMqttClientDisconnectReason reason) {
     Serial.println("Disconnected from MQTT.");
 
+    xTimerStop(mqttAdvertiseTimer, 0);
     if (WiFi.isConnected()) {
         xTimerStart(mqttReconnectTimer, 0);
     }

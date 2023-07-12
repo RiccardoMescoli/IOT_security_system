@@ -1,7 +1,9 @@
 #ifndef PIR_UNIT_CONFIG_H /*== INCLUDE ==*/
 #define PIR_UNIT_CONFIG_H /*=== GUARD ===*/
 
+#include <map>
 #include "IoTConnectivityImports.h"
+#include "SensDataStructures.h"
 #include "PIR/PreferencesUtils/PreferencesUtils.h"
 #include "WiFiUtils/WiFiUtils.h"
 #include "PIR/MQTTUtils/MQTTUtils.h"
@@ -20,6 +22,7 @@
 #define DEFAULT_GROUP 'H'
 
 #define SENS_ACT_PERIOD_DURATION_MS 30000
+#define MQTT_ADV_FREQUENCY_MS 60000
 
 #define SENS_ACT_PIN 27 // SETTED TO A TEMPORARY RANDOM PIN
 #define PIR_OUTPUT_PIN 39
