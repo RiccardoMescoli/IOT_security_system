@@ -1,0 +1,1168 @@
+[
+    {
+        "id": "61afcaf770be6bd9",
+        "type": "tab",
+        "label": "Controller Flow",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "8a4a2eb6a7f6191a",
+        "type": "tab",
+        "label": "Sensors Flow",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "5dc7a301bb066a7e",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "alarm-dashboard",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": false,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "db7d8a1ee7b31ca9",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "abd0958440adcab3",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-dark",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#a40000",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#a40000",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#097479",
+                    "value": "#a40000",
+                    "edited": true
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#a40000",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#f00000",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#555555",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#eeeeee",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#a40000",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Alarm system dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "e1421d2fcd780328",
+        "type": "ui_group",
+        "name": "Controller",
+        "tab": "db7d8a1ee7b31ca9",
+        "order": 1,
+        "disp": true,
+        "width": 17,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "c18e187d98f64ff6",
+        "type": "ui_group",
+        "name": "Sensors",
+        "tab": "db7d8a1ee7b31ca9",
+        "order": 2,
+        "disp": true,
+        "width": "17",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "9e076afa5a73bce3",
+        "type": "mqtt in",
+        "z": "61afcaf770be6bd9",
+        "name": "Alarm system MQTT broker",
+        "topic": "house/security/controller/status",
+        "qos": "1",
+        "datatype": "utf8",
+        "broker": "5dc7a301bb066a7e",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 180,
+        "y": 120,
+        "wires": [
+            [
+                "1005db8e10e7e659"
+            ]
+        ]
+    },
+    {
+        "id": "1005db8e10e7e659",
+        "type": "json",
+        "z": "61afcaf770be6bd9",
+        "name": "Parser",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 470,
+        "y": 120,
+        "wires": [
+            [
+                "764667ae7158a1f7",
+                "4ec6e479bd2ca17c"
+            ]
+        ]
+    },
+    {
+        "id": "764667ae7158a1f7",
+        "type": "debug",
+        "z": "61afcaf770be6bd9",
+        "name": "debug 1",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 700,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "d60a5e1bb14bc498",
+        "type": "ui_text",
+        "z": "61afcaf770be6bd9",
+        "group": "e1421d2fcd780328",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Status: ",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "className": "",
+        "x": 880,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "dcad1e0232e81226",
+        "type": "ui_text",
+        "z": "61afcaf770be6bd9",
+        "group": "e1421d2fcd780328",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "IP: ",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "className": "",
+        "x": 870,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "4ec6e479bd2ca17c",
+        "type": "function",
+        "z": "61afcaf770be6bd9",
+        "name": "function 1",
+        "func": "\nreturn [\n    {\"payload\": msg.payload.name},\n    {\"payload\": msg.payload.status},\n    {\"payload\": msg.payload.ip}\n];",
+        "outputs": 3,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 120,
+        "wires": [
+            [
+                "5a4dae6ad6f4f1c1"
+            ],
+            [
+                "d60a5e1bb14bc498"
+            ],
+            [
+                "dcad1e0232e81226",
+                "aa839c94cd88be3c"
+            ]
+        ]
+    },
+    {
+        "id": "5a4dae6ad6f4f1c1",
+        "type": "ui_text",
+        "z": "61afcaf770be6bd9",
+        "group": "e1421d2fcd780328",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Name: ",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "className": "",
+        "x": 870,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "5f1a2b0b9d6e13de",
+        "type": "ui_switch",
+        "z": "61afcaf770be6bd9",
+        "name": "",
+        "label": "Activate/Deactivate alarm",
+        "tooltip": "",
+        "group": "e1421d2fcd780328",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": "true",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 870,
+        "y": 380,
+        "wires": [
+            [
+                "6059a9d9bb4255a6",
+                "0a5d65edaf5dc3f8"
+            ]
+        ]
+    },
+    {
+        "id": "a9ac9fad941b2ca3",
+        "type": "ui_text",
+        "z": "61afcaf770be6bd9",
+        "group": "e1421d2fcd780328",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Alarm status: ",
+        "format": "{{msg.payload.alarm_status}}",
+        "layout": "row-left",
+        "className": "",
+        "x": 670,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "40fce47330d9d7bd",
+        "type": "ui_text",
+        "z": "61afcaf770be6bd9",
+        "group": "e1421d2fcd780328",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Alarm triggered: ",
+        "format": "{{msg.payload.alarm_triggered}}",
+        "layout": "row-left",
+        "className": "",
+        "x": 680,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "7139ac3ee4b934f2",
+        "type": "coap request",
+        "z": "61afcaf770be6bd9",
+        "method": "GET",
+        "observe": false,
+        "multicast": false,
+        "multicastTimeout": 20000,
+        "url": "",
+        "content-format": "text/plain",
+        "raw-buffer": false,
+        "name": "Switch request",
+        "x": 1360,
+        "y": 380,
+        "wires": [
+            [
+                "1ee4b2e549fbadeb"
+            ]
+        ]
+    },
+    {
+        "id": "5c70f014fd5e94a2",
+        "type": "mqtt in",
+        "z": "61afcaf770be6bd9",
+        "name": "Alarm system MQTT broker",
+        "topic": "house/security/controller/alarm/status",
+        "qos": "1",
+        "datatype": "utf8",
+        "broker": "5dc7a301bb066a7e",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 180,
+        "y": 280,
+        "wires": [
+            [
+                "e5112b549bd8e69b"
+            ]
+        ]
+    },
+    {
+        "id": "138d0d799a00e3f0",
+        "type": "mqtt in",
+        "z": "61afcaf770be6bd9",
+        "name": "Alarm system MQTT broker",
+        "topic": "house/security/controller/alarm/triggered",
+        "qos": "1",
+        "datatype": "utf8",
+        "broker": "5dc7a301bb066a7e",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 180,
+        "y": 480,
+        "wires": [
+            [
+                "30f7c6833ce98c55"
+            ]
+        ]
+    },
+    {
+        "id": "e5112b549bd8e69b",
+        "type": "json",
+        "z": "61afcaf770be6bd9",
+        "name": "Parser",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 470,
+        "y": 280,
+        "wires": [
+            [
+                "a9ac9fad941b2ca3",
+                "b5bc7ce1978a709b"
+            ]
+        ]
+    },
+    {
+        "id": "30f7c6833ce98c55",
+        "type": "json",
+        "z": "61afcaf770be6bd9",
+        "name": "Parser",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 470,
+        "y": 480,
+        "wires": [
+            [
+                "40fce47330d9d7bd"
+            ]
+        ]
+    },
+    {
+        "id": "b5bc7ce1978a709b",
+        "type": "function",
+        "z": "61afcaf770be6bd9",
+        "name": "function 2",
+        "func": "const al_stat = msg.payload.alarm_status;\nif( al_stat == \"ACTIVATING\" || al_stat == \"ON\"){\n    return {\"payload\": true};\n} else {\n    return {\"payload\": false};\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 380,
+        "wires": [
+            [
+                "5f1a2b0b9d6e13de"
+            ]
+        ]
+    },
+    {
+        "id": "6059a9d9bb4255a6",
+        "type": "delay",
+        "z": "61afcaf770be6bd9",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "50",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 870,
+        "y": 260,
+        "wires": [
+            [
+                "5f1a2b0b9d6e13de"
+            ]
+        ]
+    },
+    {
+        "id": "1ee4b2e549fbadeb",
+        "type": "debug",
+        "z": "61afcaf770be6bd9",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1540,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "0a5d65edaf5dc3f8",
+        "type": "function",
+        "z": "61afcaf770be6bd9",
+        "name": "Prepare GET request",
+        "func": "if(global.get !== undefined)\n{\n    var new_payload = msg.payload ? \"true\" : \"false\";\n    return {\n        \"url\": \"coap://\"+global.get(\"controller_ip\")+\"/switch\",\n        \"payload\": new_payload,\n        \"method\": \"GET\",\n        \n    };\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1140,
+        "y": 380,
+        "wires": [
+            [
+                "7139ac3ee4b934f2"
+            ]
+        ]
+    },
+    {
+        "id": "aa839c94cd88be3c",
+        "type": "function",
+        "z": "61afcaf770be6bd9",
+        "name": "Save Controller IP",
+        "func": "global.set(\"controller_ip\", msg.payload);",
+        "outputs": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 910,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "3ef7d38b90d43d79",
+        "type": "ui_button",
+        "z": "61afcaf770be6bd9",
+        "name": "",
+        "group": "e1421d2fcd780328",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Trigger alarm",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 850,
+        "y": 560,
+        "wires": [
+            [
+                "2d07892620c295a2"
+            ]
+        ]
+    },
+    {
+        "id": "2d07892620c295a2",
+        "type": "function",
+        "z": "61afcaf770be6bd9",
+        "name": "Prepare GET request",
+        "func": "if(global.get !== undefined)\n{\n    return {\n        \"url\": \"coap://\"+global.get(\"controller_ip\")+\"/trigger\",\n        \"payload\": \"true\",\n        \"method\": \"GET\",\n        \n    };\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1060,
+        "y": 560,
+        "wires": [
+            [
+                "201aeb7658de9ac2"
+            ]
+        ]
+    },
+    {
+        "id": "201aeb7658de9ac2",
+        "type": "coap request",
+        "z": "61afcaf770be6bd9",
+        "method": "GET",
+        "observe": false,
+        "multicast": false,
+        "multicastTimeout": 20000,
+        "url": "",
+        "content-format": "text/plain",
+        "raw-buffer": false,
+        "name": "Trigger alarm request",
+        "x": 1320,
+        "y": 560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "24a005a02cd31f81",
+        "type": "mqtt in",
+        "z": "8a4a2eb6a7f6191a",
+        "name": "Alarm system MQTT broker",
+        "topic": "house/security/sensors/status",
+        "qos": "1",
+        "datatype": "utf8",
+        "broker": "5dc7a301bb066a7e",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 180,
+        "y": 180,
+        "wires": [
+            [
+                "4e671e32ea7701fb"
+            ]
+        ]
+    },
+    {
+        "id": "4e671e32ea7701fb",
+        "type": "json",
+        "z": "8a4a2eb6a7f6191a",
+        "name": "Parser",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 390,
+        "y": 180,
+        "wires": [
+            [
+                "2445af5274983c45",
+                "5c8028907440143d"
+            ]
+        ]
+    },
+    {
+        "id": "2445af5274983c45",
+        "type": "function",
+        "z": "8a4a2eb6a7f6191a",
+        "name": "function 3",
+        "func": "global.set(\"updated_sens\", msg.payload.ip);\n\nvar msg_item = {\n    [msg.payload.name + \" (\" + msg.payload.ip + \")\"]:\n    msg.payload.ip\n}\n\nvar dropdown_list = [];\nif (global.get(\"dd_sensor_list\") !== undefined) {\n    dropdown_list = global.get(\"dd_sensor_list\");\n}\n\nif(msg.payload.status === \"ONLINE\"){\n    if (dropdown_list.find(obj => Object.keys(obj)[0] === Object.keys(msg_item)[0] ) === undefined) {\n        dropdown_list.push(msg_item);\n        global.set(\"dd_sensor_list\", dropdown_list);\n    }\n\n    global.set(\n        msg.payload.ip,\n        {\n            \"name\": msg.payload.name,\n            \"ip\": msg.payload.ip,\n            \"group\": msg.payload.group,\n            \"tier\": msg.payload.tier,\n        }\n    );\n} else if (dropdown_list.length > 0 && msg.payload.status === \"OFFLINE\") {\n    global.set(msg.payload.ip);\n    dropdown_list = dropdown_list.filter(function(obj){\n        let obj_keys = Object.keys(obj);\n        let filt_keys = Object.keys(msg_item);\n        return obj_keys[0] !== filt_keys[0];\n    });\n    global.set(\"dd_sensor_list\", dropdown_list);\n}\nreturn {\n    \"options\": [{\"NONE\":\"NONE\"}].concat(dropdown_list)\n    };",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 180,
+        "wires": [
+            [
+                "99f6a185e74e692e",
+                "56a84fe3e198194f"
+            ]
+        ]
+    },
+    {
+        "id": "99f6a185e74e692e",
+        "type": "ui_dropdown",
+        "z": "8a4a2eb6a7f6191a",
+        "name": "",
+        "label": "Select a sensor",
+        "tooltip": "",
+        "place": "Sensor",
+        "group": "c18e187d98f64ff6",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "multiple": false,
+        "options": [
+            {
+                "label": "",
+                "value": "",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "topic",
+        "topicType": "msg",
+        "className": "",
+        "x": 760,
+        "y": 180,
+        "wires": [
+            [
+                "22c7ff380834796e",
+                "2f9bafb21de7591e"
+            ]
+        ]
+    },
+    {
+        "id": "9b25fd0f9ddaf6fb",
+        "type": "ui_text",
+        "z": "8a4a2eb6a7f6191a",
+        "group": "c18e187d98f64ff6",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Name: ",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "className": "",
+        "x": 990,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "05979922bd586897",
+        "type": "ui_text",
+        "z": "8a4a2eb6a7f6191a",
+        "group": "c18e187d98f64ff6",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "IP: ",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "className": "",
+        "x": 990,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "d9ce460893446cf5",
+        "type": "ui_text",
+        "z": "8a4a2eb6a7f6191a",
+        "group": "c18e187d98f64ff6",
+        "order": 4,
+        "width": 10,
+        "height": 1,
+        "name": "",
+        "label": "Group: ",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "className": "",
+        "x": 990,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "258d857353cb4bbd",
+        "type": "ui_text",
+        "z": "8a4a2eb6a7f6191a",
+        "group": "c18e187d98f64ff6",
+        "order": 6,
+        "width": 10,
+        "height": 1,
+        "name": "",
+        "label": "Tier: ",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "className": "",
+        "x": 990,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "2dce4709cfa3b451",
+        "type": "ui_dropdown",
+        "z": "8a4a2eb6a7f6191a",
+        "name": "",
+        "label": "Pick new group",
+        "tooltip": "",
+        "place": "Select group",
+        "group": "c18e187d98f64ff6",
+        "order": 5,
+        "width": 7,
+        "height": 1,
+        "passthru": false,
+        "multiple": false,
+        "options": [
+            {
+                "label": "Human detection",
+                "value": "H",
+                "type": "str"
+            },
+            {
+                "label": "Entrance status",
+                "value": "E",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "topic",
+        "topicType": "msg",
+        "className": "",
+        "x": 880,
+        "y": 500,
+        "wires": [
+            [
+                "c7429e0b99fc9def"
+            ]
+        ]
+    },
+    {
+        "id": "56a84fe3e198194f",
+        "type": "debug",
+        "z": "8a4a2eb6a7f6191a",
+        "name": "debug 3",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "options",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 740,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "22c7ff380834796e",
+        "type": "debug",
+        "z": "8a4a2eb6a7f6191a",
+        "name": "debug 4",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1000,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "89700faa2b706afc",
+        "type": "function",
+        "z": "8a4a2eb6a7f6191a",
+        "name": "function 4",
+        "func": "var proceed = false;\nif (!msg.update_msg){\n    global.set(\"disp_sensor\", msg.payload);\n    proceed = true;\n} else if (msg.update_msg && \n           global.get(\"disp_sensor\") === msg.payload) {\n    proceed = true;\n}\n\nif(proceed && msg.payload !== \"NONE\"){\n    var sensor = global.get(msg.payload);\n    var group_char = String.fromCharCode(sensor.group);\n    var group_str = \"?\";\n\n    if (group_char === 'H'){\n        group_str = \"Human detection\";\n    } else if (group_char === 'E'){\n        group_str = \"Entrance status\";\n    }\n\n    return [\n        { \"payload\": sensor.name},\n        { \"payload\": sensor.ip},\n        { \"payload\": group_str},\n        { \"payload\": sensor.tier},\n    ];\n} else if (proceed) {\n    return [\n        { \"payload\": \"NONE\" },\n        { \"payload\": \"NONE\" },\n        { \"payload\": \"NONE\" },\n        { \"payload\": \"NONE\" },\n    ];\n}",
+        "outputs": 4,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 820,
+        "y": 340,
+        "wires": [
+            [
+                "9b25fd0f9ddaf6fb"
+            ],
+            [
+                "05979922bd586897",
+                "0fc91c1ecb841482"
+            ],
+            [
+                "d9ce460893446cf5"
+            ],
+            [
+                "258d857353cb4bbd",
+                "0730e660b5aaae4b"
+            ]
+        ]
+    },
+    {
+        "id": "6c8c237b867bd2e2",
+        "type": "function",
+        "z": "8a4a2eb6a7f6191a",
+        "name": "function 5",
+        "func": "var ip = global.get(\"updated_sens\");\n\nreturn {\n    \"payload\": ip,\n    \"update_msg\":true\n    };",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 380,
+        "wires": [
+            [
+                "89700faa2b706afc"
+            ]
+        ]
+    },
+    {
+        "id": "2f9bafb21de7591e",
+        "type": "function",
+        "z": "8a4a2eb6a7f6191a",
+        "name": "function 6",
+        "func": "return {\n    \"payload\": msg.payload,\n    \"update_msg\":false\n    };",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 300,
+        "wires": [
+            [
+                "89700faa2b706afc"
+            ]
+        ]
+    },
+    {
+        "id": "208d349af7895931",
+        "type": "complete",
+        "z": "8a4a2eb6a7f6191a",
+        "name": "",
+        "scope": [
+            "2445af5274983c45"
+        ],
+        "uncaught": false,
+        "x": 490,
+        "y": 380,
+        "wires": [
+            [
+                "6c8c237b867bd2e2"
+            ]
+        ]
+    },
+    {
+        "id": "0730e660b5aaae4b",
+        "type": "ui_numeric",
+        "z": "8a4a2eb6a7f6191a",
+        "name": "",
+        "label": "Pick new tier: ",
+        "tooltip": "",
+        "group": "c18e187d98f64ff6",
+        "order": 7,
+        "width": "7",
+        "height": "1",
+        "wrap": false,
+        "passthru": false,
+        "topic": "topic",
+        "topicType": "msg",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "3",
+        "step": 1,
+        "className": "",
+        "x": 870,
+        "y": 540,
+        "wires": [
+            [
+                "261d4862d5e4fca8"
+            ]
+        ]
+    },
+    {
+        "id": "0fc91c1ecb841482",
+        "type": "function",
+        "z": "8a4a2eb6a7f6191a",
+        "name": "function 7",
+        "func": "if (global.get(msg.payload) !== undefined)\n    return { \"payload\": global.get(msg.payload).group };",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 500,
+        "wires": [
+            [
+                "2dce4709cfa3b451"
+            ]
+        ]
+    },
+    {
+        "id": "c7429e0b99fc9def",
+        "type": "function",
+        "z": "8a4a2eb6a7f6191a",
+        "name": "Prepare GET request",
+        "func": "if(global.get !== undefined)\n{\n    return {\n        \"url\": \"coap://\" + global.get(\"disp_sensor\")+\"/setgroup\",\n        \"payload\": msg.payload,\n        \"method\": \"GET\",\n        \n    };\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1120,
+        "y": 500,
+        "wires": [
+            [
+                "da47f1bfb7979bc7",
+                "a1b61da857da576d"
+            ]
+        ]
+    },
+    {
+        "id": "261d4862d5e4fca8",
+        "type": "function",
+        "z": "8a4a2eb6a7f6191a",
+        "name": "Prepare GET request",
+        "func": "if(global.get !== undefined)\n{\n    return {\n        \"url\": \"coap://\" + global.get(\"disp_sensor\") +\"/settier\",\n        \"payload\": msg.payload.toString(10),\n        \"method\": \"GET\",\n        \n    };\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1120,
+        "y": 540,
+        "wires": [
+            [
+                "da47f1bfb7979bc7",
+                "2b9849f1664bdedf"
+            ]
+        ]
+    },
+    {
+        "id": "5c8028907440143d",
+        "type": "function",
+        "z": "8a4a2eb6a7f6191a",
+        "name": "function 8",
+        "func": "if(msg.payload.status === \"OFFLINE\"){\n    if (msg.payload.ip === global.get(\"disp_sensor\")){\n        return {\"payload\": \"NONE\"};\n    }\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 300,
+        "wires": [
+            [
+                "2f9bafb21de7591e"
+            ]
+        ]
+    },
+    {
+        "id": "da47f1bfb7979bc7",
+        "type": "coap request",
+        "z": "8a4a2eb6a7f6191a",
+        "method": "GET",
+        "observe": false,
+        "multicast": false,
+        "multicastTimeout": 20000,
+        "url": "",
+        "content-format": "text/plain",
+        "raw-buffer": false,
+        "name": "Set group or tier request",
+        "x": 1370,
+        "y": 520,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a1b61da857da576d",
+        "type": "debug",
+        "z": "8a4a2eb6a7f6191a",
+        "name": "debug 5",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1340,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "2b9849f1664bdedf",
+        "type": "debug",
+        "z": "8a4a2eb6a7f6191a",
+        "name": "debug 6",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1340,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "e4d9084e91a3b9cb",
+        "type": "ui_button",
+        "z": "8a4a2eb6a7f6191a",
+        "name": "",
+        "group": "c18e187d98f64ff6",
+        "order": 8,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Activate sensor",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 880,
+        "y": 680,
+        "wires": [
+            [
+                "ea6d427fa178451f"
+            ]
+        ]
+    },
+    {
+        "id": "f7ad12be11d5140a",
+        "type": "coap request",
+        "z": "8a4a2eb6a7f6191a",
+        "method": "GET",
+        "observe": false,
+        "multicast": false,
+        "multicastTimeout": 20000,
+        "url": "",
+        "content-format": "text/plain",
+        "raw-buffer": false,
+        "name": "Trigger alarm request",
+        "x": 1360,
+        "y": 680,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ea6d427fa178451f",
+        "type": "function",
+        "z": "8a4a2eb6a7f6191a",
+        "name": "Prepare GET request",
+        "func": "if(global.get !== undefined)\n{\n    return {\n        \"url\": \"coap://\" + global.get(\"disp_sensor\") +\"/activate\",\n        \"payload\": \"true\",\n        \"method\": \"GET\",\n        \n    };\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1120,
+        "y": 680,
+        "wires": [
+            [
+                "f7ad12be11d5140a"
+            ]
+        ]
+    }
+]
